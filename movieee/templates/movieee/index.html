@@ -1,1 +1,4 @@
 <h1>Top Page</h1>
+{% for post in posts %}
+  <img src="{{ post.image.url }}" alt="post-image" class="post-image">
+{% endfor %}
