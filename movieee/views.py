@@ -7,6 +7,6 @@ def index(request):
   return render(request, 'movieee/index.html', {'posts': posts})
 
 
-def users(request, pk):
+def users_detail(request, pk):
   user = get_object_or_404(User, pk=pk)
-  return render(request, 'movieee/users.html', {'user': user})
+  return render(request, 'movieee/users_detail.html', {'user': user})
