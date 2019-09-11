@@ -14,5 +14,10 @@ def users_detail(request, pk):
 
 
 def signup(request):
-  form = UserCreationForm()
+  if request == 'POST':
+    form =  UserCreationForm(request.POST)
+    if form.is_valid():
+      new_user = form.save()
+  else:
+    form = UserCreationForm()
   return render(request, 'movieee/signup.html', {'form': form})
