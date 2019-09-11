@@ -15,12 +15,12 @@ def users_detail(request, pk):
 
 
 def signup(request):
-  if request == 'POST':
+  if request.method == 'POST':
     form = UserCreationForm(request.POST)
     if form.is_valid():
       new_user = form.save()
       input_username = form.cleaned_data['username']
-      input_password = form.cleaned_data['password']
+      input_password = form.cleaned_data['password1']
       # フォームの入力値が認証できればユーザーオブジェクト、できなければNoneを返す
       new_user = authenticate(username=input_username, password=input_password)
       if new_user is not None:
