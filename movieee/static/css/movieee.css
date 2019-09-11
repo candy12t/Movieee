@@ -6,11 +6,19 @@ h1 a {
 .header-title {
   background-color: #212121;
   margin-top: 0;
-  padding: 20px 20px 20px 40px;
+  padding: 5px 20px 5px 40px;
 }
 
-.header-title h1, .header-title h1 a, .header-title h1 a:visited, .header-title h1 a:active {
+.header-title h1, .header-title h1 a{
   color: #DA1725;
   font-size: 36pt;
   text-decoration: none;
+}
+
+.post-image {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
 }
