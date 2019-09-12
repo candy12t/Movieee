@@ -8,6 +8,11 @@
   </div>
   <h2>{{ post.title }}</h2>
   <p>{{ post.text }}</p>
+  {% if request.user == post.user %}
+  <form action="{% url 'movieee:posts_delete' post.id %}" method="post">{% csrf_token %}
+    <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
+  </form>
+  {% endif %}
 </div>
 
 {% endblock %}
