@@ -46,3 +46,8 @@ def posts_new(request):
   else:
     form = PostForm()
   return render(request, 'movieee/posts_new.html', {'form': form})
+
+
+def posts_detail(request, pk):
+  post = get_object_or_404(Post, pk=pk)
+  return render(request, 'movieee/posts_detail.html', {'post': post})
