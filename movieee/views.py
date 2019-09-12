@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .form import PostForm
 from .models import Post
 
@@ -51,3 +52,10 @@ def posts_new(request):
 def posts_detail(request, pk):
   post = get_object_or_404(Post, pk=pk)
   return render(request, 'movieee/posts_detail.html', {'post': post})
+
+
+@require_POST
+def posts_delete(request, pk):
+  post = get_object_or_404(Post, pk=pk)
+  post.delete()
+  return redirect('movieee:users_detail', request.user.id)
