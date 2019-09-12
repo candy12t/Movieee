@@ -1,9 +1,11 @@
 {% extends 'movieee/base.html' %}
 {% block content %}
 
-<h1>Top Page</h1>
+<h2>Top Page</h2>
 {% for post in posts %}
+<a href="{% url 'movieee:posts_detail' post.id %}">
   <img src="{{ post.image.url }}" alt="post-image" class="post-image">
+</a>
 {% endfor %}
 
 {% endblock %}
