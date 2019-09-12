@@ -1,0 +1,13 @@
+{% extends 'movieee/base.html' %}
+{% block content %}
+
+<div class="post-detail">
+  <img src="{{ post.image.url }}" alt="post-detail" class="post-image">
+  <div class="post-info">
+    <a href="{% url 'movieee:users_detail' post.user.id %}">@{{ post.user }}</a>
+  </div>
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.text }}</p>
+</div>
+
+{% endblock %}
