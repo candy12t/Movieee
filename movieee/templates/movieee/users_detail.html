@@ -2,10 +2,16 @@
 {% block content %}
 
 <h2 class="user-name">@{{ user.username }}</h2>
-{% for post in posts %}
-<a href="{% url 'movieee:posts_detail' post.id %}">
-  <img src="{{ post.image.url }}" alt="post-image" class="post-image">
-</a>
-{% endfor %}
+
+{% if posts.count != 0 %}
+  <p>投稿<strong>{{ posts.count }}</strong>件</p>
+{% else %}
+  {% if user == request.user %}
+    <p>初めての投稿をしてみましょう！</p>
+  {% else %}
+    <p>@{{ user.username }}さんはまだ投稿してません。</p>
+  {% endif %}
+{% endif %}
+{% include 'movieee/post_list.html' %}
 
 {% endblock %}
