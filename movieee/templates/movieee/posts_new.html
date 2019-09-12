@@ -1,0 +1,22 @@
+{% extends 'movieee/base.html' %}
+{% block content %}
+
+<form action="{% url 'movieee:posts_new' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+  <table>
+    <tr>
+      <th>タイトル</th>
+      <td>{{ form.title }}</td>
+    </tr>
+    <tr>
+      <th>内容</th>
+      <td>{{ form.text }}</td>
+    </tr>
+    <tr>
+      <th>画像</th>
+      <td>{{ form.image }}</td>
+    </tr>
+    </table>
+    <button type="submit">投稿</button>
+</form>
+
+{% endblock %}
