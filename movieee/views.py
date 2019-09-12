@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.contrib import messages
 from .form import PostForm
 from .models import Post
 
@@ -43,7 +44,7 @@ def posts_new(request):
       post = form.save(commit=False)
       post.user = request.user
       post.save()
-      messages.success(request, '投稿しました！')
+      messages.success(request, "投稿しました！")
     return redirect('movieee:users_detail', pk=request.user.pk)
   else:
     form = PostForm()
