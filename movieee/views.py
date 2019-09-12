@@ -60,4 +60,5 @@ def posts_detail(request, pk):
 def posts_delete(request, pk):
   post = get_object_or_404(Post, pk=pk)
   post.delete()
+  messages.success(request, "削除しました")
   return redirect('movieee:users_detail', request.user.id)
