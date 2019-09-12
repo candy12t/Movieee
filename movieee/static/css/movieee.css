@@ -39,6 +39,10 @@ h1 a {
   text-decoration: underline;
 }
 
+.btn:hover{
+  text-decoration: underline;
+}
+
 .user-name {
   font-size: 30px;
 }
