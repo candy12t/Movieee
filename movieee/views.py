@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from .form import PostForm
 from .models import Post
 
 def index(request):
@@ -29,3 +31,18 @@ def signup(request):
   else:
     form = UserCreationForm()
   return render(request, 'movieee/signup.html', {'form': form})
+
+
+@login_required
+def posts_new(request):
+  if request.method == 'POST':
+    form = PostForm(request.POST, request.FILES)
+    if form.is_valid():
+      post = form.save(commit=False)
+      post.user = request.user
+      post.save()
+      messages.success(request, '投稿しました！')
+    return redirect('movieee:users_detail', pk=request.user.pk)
+  else:
+    form = PostForm()
+  return render(request, 'movieee/posts_new.html', {'form': form})
