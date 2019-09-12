@@ -1,6 +1,10 @@
 {% extends 'movieee/base.html' %}
 {% block content %}
 
+<div>
+  <a href="{% url 'movieee:index' %}">ホームに戻る</a>
+</div>
+
 <form action="{% url 'movieee:posts_new' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
   <table>
     <tr>
