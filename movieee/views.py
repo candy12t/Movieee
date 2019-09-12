@@ -15,7 +15,7 @@ def index(request):
 
 def users_detail(request, pk):
   user = get_object_or_404(User, pk=pk)
-  posts = Post.objects.all().order_by('-created_date')
+  posts = user.post_set.all().order_by('-created_date')
   return render(request, 'movieee/users_detail.html', {'user': user, 'posts': posts})
 
 
