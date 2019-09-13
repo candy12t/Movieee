@@ -5,7 +5,7 @@
         <img src="{{ post.image.url }}" class="post-image">
       </a>
       <div class="post-info">
-        <p>{{ post.text }}</p>
+        <p>{{ post.title }}</p>
         <a href="{% url 'movieee:users_detail' post.user.id %}">@{{ post.user }}</a>
       </div>
     </div>
