@@ -1,27 +1,34 @@
-h1 a {
-  color: #212121;
+body {
+  margin: 0 auto;
+}
+header {
+  height: 60px;
+  background-color: #212121;
+}
+.top {
+  margin: 0;
+  height: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+}
+.top li:first-child {
+  margin-right: auto;
+}
+.top a {
+  align-items: center;
+  padding: 22px 10px;
+  text-decoration: none;
+  color: white;
+}
+.top .logo {
+  color: #DA1725;
+  font-size: 40px;
   font-family: 'Lobster';
 }
-
-.header-title {
-  background-color: #212121;
-  margin-top: 0;
-  padding: 5px 20px 5px 40px;
-}
-
-.header-title h1, .header-title h1 a {
-  color: #DA1725;
-  font-size: 36pt;
-  text-decoration: none;
-}
-
-.header-menu a {
-  color: black;
-  text-decoration: none;
-}
-
-.header-menu a:hover {
-  text-decoration: underline;
+.top a:hover:not(.logo) {
+  background-color: gray;
 }
 
 .post {
