@@ -15,7 +15,7 @@
 {% include 'movieee/post_list.html' %}
 
 {% if request.user == user %}
-  <a href="{% url 'movieee:logout' %}">ログアウト</a>
+  <button><a href="{% url 'movieee:logout' %}">ログアウト</a></button>
 {% endif %}
 
 {% endblock %}

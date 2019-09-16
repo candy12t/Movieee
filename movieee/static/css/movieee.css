@@ -1,6 +1,9 @@
 body {
   margin: 0 auto;
 }
+div {
+  box-sizing: border-box;
+}
 header {
   height: 60px;
   background-color: #212121;
@@ -33,30 +36,30 @@ header {
 .top a:hover:not(.logo) {
   background-color: gray;
 }
-
+.container {
+  width: 65%;
+  padding-top: 60px;
+  margin: auto;
+  overflow: auto;
+}
+.post-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 .post {
   width: calc(100%/3);
-  float: left;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 10px 10px 25px 10px;
 }
-
-.post a {
-  display: block;
+.post-info a, button a {
+  text-decoration: none;
+  color: black;
 }
-
 .post-info a:hover {
-  text-decoration: underline;
+  color: blue;
 }
-
-.btn:hover{
-  text-decoration: underline;
+.post-info p {
+  margin: 0;
 }
-
-.user-name {
-  font-size: 30px;
-}
-
 .post-image {
   width: 100%;
   max-width: 500px;
@@ -64,19 +67,18 @@ header {
   object-fit: cover;
   border-radius: 4px;
 }
-
 .post-image:hover {
   opacity: 0.8;
 }
-
 .post-detail .post-image{
   object-fit: contain; 
 }
-
 .post-detail .post-image:hover {
   opacity: 1;
 }
-
+.user-name {
+  font-size: 30px;
+}
 .message-success {
   background-color: #00d1b2;
   padding: 10px;
