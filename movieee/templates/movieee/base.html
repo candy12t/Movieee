@@ -21,11 +21,11 @@
       {% endif %}
     </ul>
   </header>
-      <div class="container">
-      {% for message in messages %}
-        <p class="message-success">{{ message }}</p>
-      {% endfor %}
-      {% block content %}{% endblock %}
-    </div>
+  <div class="container">
+    {% for message in messages %}
+      <p class="message-success">{{ message }}</p>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </div>
 </body>
 </html>

@@ -20,7 +20,7 @@ header {
 }
 .top a:not(.logo) {
   align-items: center;
-  padding: 22px 10px;
+  padding: 22px 15px;
   text-decoration: none;
   color: white;
 }
