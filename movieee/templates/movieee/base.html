@@ -14,11 +14,10 @@
       <li><a href="{% url 'movieee:index' %}">ホーム</a></li>
       <li><a href="{% url 'movieee:posts_new' %}">投稿</a></li>
       {% if request.user.is_authenticated %}
-        <li><a href="{% url 'movieee:users_detail' request.user.id %}">マイページ</a></li>
-        <li><a href="{% url 'movieee:logout' %}">ログアウト</a></li>
+        <li><a href="{% url 'movieee:users_detail' request.user.id %}">@{{ user.username }}</a></li>
       {% else %}
-        <li><a href="{% url 'movieee:signup' %}">新規登録</a></li>
         <li><a href="{% url 'movieee:login' %}">ログイン</a></li>
+        <li><a href="{% url 'movieee:signup' %}">新規登録</a></li>
       {% endif %}
     </ul>
   </header>
