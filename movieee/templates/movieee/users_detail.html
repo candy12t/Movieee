@@ -13,6 +13,9 @@
   {% endif %}
 {% endif %}
 {% include 'movieee/post_list.html' %}
-<a href="{% url 'movieee:logout' %}">ログアウト</a>
+
+{% if request.user == user %}
+  <a href="{% url 'movieee:logout' %}">ログアウト</a>
+{% endif %}
 
 {% endblock %}
