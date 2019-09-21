@@ -73,6 +73,7 @@ def posts_edit(request, pk):
       post = form.save(commit=False)
       post.user = request.user
       post.save()
+    return redirect('movieee:index')
   else:
     form = PostForm(instance=post)
-  return render(request, 'movieee/posts_new.html', {'form': form})
+  return render(request, 'movieee/posts_edit.html', {'form': form, 'post': post})
