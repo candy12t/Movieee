@@ -62,3 +62,17 @@ def posts_delete(request, pk):
   post.delete()
   messages.success(request, "削除しました")
   return redirect('movieee:users_detail', request.user.id)
+
+
+@login_required
+def posts_edit(request, pk):
+  post = get_object_or_404(Post, pk=pk)
+  if request.method == 'POST':
+    form = PostForm(request.POST, instance=post)
+    if form.is_valid():
+      post = form.save(commit=False)
+      post.user = request.user
+      post.save()
+  else:
+    form = PostForm(instance=post)
+  return render(request, 'movieee/posts_new.html', {'form': form})
