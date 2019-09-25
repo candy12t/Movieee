@@ -73,6 +73,7 @@ def posts_edit(request, pk):
       post = form.save(commit=False)
       post.user = request.user
       post.save()
+      messages.success(request, "編集しました！")
     return redirect('movieee:index')
   else:
     form = PostForm(instance=post)
