@@ -6,6 +6,7 @@
       </a>
       <div class="post-info">
         <p><strong>{{ post.title }}</strong></p>
+        <p>{{ post.text|truncatechars_html:10 }}</p>
         <a href="{% url 'movieee:users_detail' post.user.id %}">@{{ post.user }}</a>
       </div>
     </div>
