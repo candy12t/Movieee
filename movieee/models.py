@@ -11,3 +11,13 @@ class Post(models.Model):
 
   def __str__(self):
     return self.title
+
+
+class Comment(models.Model):
+  comment = models.TextField()
+  post = models.ForeignKey('movieee.Post', on_delete=models.CASCADE, related_name='comments')
+  user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users')
+  created_date = models.DateTimeField(auto_now_add=True)
+
+  def __str__(self):
+    return self.comment
