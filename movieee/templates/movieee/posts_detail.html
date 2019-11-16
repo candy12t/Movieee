@@ -16,6 +16,14 @@
     <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
   </form>
   {% endif %}
+  <hr>
+  {% for comment in post.comments.all %}
+    <strong>{{ comment.user}}</strong>
+    <p>{{ comment.comment }}</p>
+    <p>{{ comment.created_date }}</p>
+  {% empty %}
+    <p>No comments here yet</p>
+  {% endfor %}
 </div>
 
 {% endblock %}
