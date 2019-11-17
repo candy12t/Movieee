@@ -1,44 +1,56 @@
+@charset "UTF-8";
+
+html {
+  font-size: 100%;
+}
 body {
   margin: 0 auto;
 }
 div {
   box-sizing: border-box;
 }
-header {
-  height: 60px;
-  background-color: #212121;
-}
-.top {
-  margin: 0;
-  height: 60px;
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-  list-style: none;
-  padding-inline-start: 100px;
-  padding-inline-end: 100px;
-}
-.top li:first-child {
-  margin-right: auto;
-}
-.top a:not(.logo) {
-  align-items: center;
-  padding: 22px 15px;
+a {
   text-decoration: none;
+}
+img {
+  max-width: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #212121;
+  height: 60px;
+}
+.wrapper {
+  margin: 0 auto;
+  padding: 0 4%;
+}
+.wrapper h1 {
+  margin: auto 0;
+}
+.logo {
+  font-size: 40px;
+  color: #DA1725;
+  font-family: 'Lobster', cursive;
+}
+.main-nav {
+  display: flex;
+  font-size: 16px;
+  margin: 18px 0;
+  list-style: none;
+}
+.main-nav li a {
+  padding: 22px 20px;
   color: white;
 }
-.top .logo {
-  text-decoration: none;
-  color: #DA1725;
-  font-size: 40px;
-  font-family: 'Lobster';
-}
-.top a:hover:not(.logo) {
+.main-nav li a:hover {
   background-color: gray;
 }
+
 .container {
-  width: 65%;
-  padding-top: 60px;
+  width: 90%;
+  padding-top: 40px;
   margin: auto;
   overflow: auto;
 }
@@ -47,33 +59,46 @@ header {
   flex-wrap: wrap;
 }
 .post {
-  width: calc(100%/3);
-  padding: 10px 10px 25px 10px;
+  width: calc(100%/4);
+  padding: 10px;
+  margin-bottom: 10px;
 }
-.post-info a, button a {
-  text-decoration: none;
-  color: black;
-}
-.post-info a:hover {
-  color: blue;
-}
-.post-info p {
+.post p {
   margin: 0;
 }
-.post-image {
+.post-title {
+  margin-bottom: 5px;
+}
+.post-title strong {
+  font-size: 20px;
+}
+.post-img {
   width: 100%;
   max-width: 500px;
   height: 300px;
   object-fit: cover;
   border-radius: 4px;
 }
-.post-image:hover {
+.post-img:hover {
   opacity: 0.8;
 }
-.post-detail .post-image{
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.post-info a {
+  text-decoration: none;
+  color: black;
+}
+.post-date {
+  color: #828282;
+}
+
+.post-detail .post-img{
   object-fit: contain; 
 }
-.post-detail .post-image:hover {
+.post-detail .post-img:hover {
   opacity: 1;
 }
 .user-name {

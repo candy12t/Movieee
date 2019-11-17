@@ -2,24 +2,25 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
   <title>Movieee</title>
-  <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/movieee.css' %}">
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/movieee.css' %}">
 </head>
 <body>
-  <header>
-    <ul class="top">
-      <li><a href="{% url 'movieee:index' %}" class="logo">Movieee</a></li>
-      <li><a href="{% url 'movieee:index' %}">ホーム</a></li>
-      <li><a href="{% url 'movieee:posts_new' %}">投稿</a></li>
-      {% if request.user.is_authenticated %}
-        <li><a href="{% url 'movieee:users_detail' request.user.id %}">@{{ user.username }}</a></li>
-      {% else %}
-        <li><a href="{% url 'movieee:login' %}">ログイン</a></li>
-        <li><a href="{% url 'movieee:signup' %}">新規登録</a></li>
-      {% endif %}
-    </ul>
+  <header class="wrapper">
+    <h1><a href="{% url 'movieee:index' %}" class="logo">Movieee</a></h1>
+    <nav>
+      <ul class="main-nav">
+        <li><a href="{% url 'movieee:posts_new' %}">投稿</a></li>
+        {% if request.user.is_authenticated %}
+          <li><a href="{% url 'movieee:users_detail' request.user.id %}">マイページ</a></li>
+        {% else %}
+          <li><a href="{% url 'movieee:login' %}">ログイン</a></li>
+          <li><a href="{% url 'movieee:signup' %}">新規登録</a></li>
+        {% endif %}
+      </ul>
+    </nav>
   </header>
   <div class="container">
     {% for message in messages %}

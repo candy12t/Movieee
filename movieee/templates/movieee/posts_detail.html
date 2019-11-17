@@ -2,19 +2,18 @@
 {% block content %}
 
 <div class="post-detail">
-  <img src="{{ post.image.url }}" alt="post-detail" class="post-image">
-  <div class="post-info">
-    <a href="{% url 'movieee:users_detail' post.user.id %}">@{{ post.user }}</a>
-  </div>
+  <img src="{{ post.image.url }}" alt="post-detail" class="post-img">
   <h2>{{ post.title }}</h2>
+  <p>{{ post.created_date|date:"Y/m/d H:i" }}</p>
+  <a href="{% url 'movieee:users_detail' post.user.id %}">@{{ post.user }}</a>
   <p>{{ post.text|linebreaksbr }}</p>
   {% if request.user == post.user %}
-  <a href="{% url 'movieee:posts_edit' post.id %}" method="post">
-    <button type="submit">編集</button>
-  </a>
-  <form action="{% url 'movieee:posts_delete' post.id %}" method="post">{% csrf_token %}
-    <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
-  </form>
+    <a href="{% url 'movieee:posts_edit' post.id %}" method="post">
+      <button class="btn" type="submit">編集</button>
+    </a>
+    <form action="{% url 'movieee:posts_delete' post.id %}" method="post">{% csrf_token %}
+      <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
+    </form>
   {% endif %}
   <hr>
   {% for comment in post.comments.all %}

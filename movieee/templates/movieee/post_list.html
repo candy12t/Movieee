@@ -1,13 +1,20 @@
 <div class="post-container">
   {% for post in posts %}
     <div class="post">
+      <div class="post-title">
+        <p><strong>{{ post.title|truncatechars_html:15 }}</strong></p>
+      </div>
       <a href="{% url 'movieee:posts_detail' post.id %}">
-        <img src="{{ post.image.url }}" class="post-image">
+        <img src="{{ post.image.url }}" class="post-img">
       </a>
+      <div class="post-text">
+        <p>{{ post.text|truncatechars_html:25 }}</p>
+      </div>
       <div class="post-info">
-        <p><strong>{{ post.title }}</strong></p>
-        <p>{{ post.text|truncatechars_html:10 }}</p>
         <a href="{% url 'movieee:users_detail' post.user.id %}">@{{ post.user }}</a>
+        <div class="post-date">
+          <p>{{ post.created_date|date:"Y/m/d H:i" }}</p>
+        </div>
       </div>
     </div>
   {% endfor %}
