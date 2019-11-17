@@ -50,7 +50,7 @@ header {
 
 .container {
   width: 90%;
-  padding-top: 60px;
+  padding: 60px 0;
   margin: auto;
   overflow: auto;
 }
