@@ -1,28 +1,38 @@
 {% extends 'movieee/base.html' %}
 {% block content %}
 
-<div class="post-detail">
-  <img src="{{ post.image.url }}" alt="post-detail" class="post-img">
-  <h2>{{ post.title }}</h2>
-  <p>{{ post.created_date|date:"Y/m/d H:i" }}</p>
-  <a href="{% url 'movieee:users_detail' post.user.id %}">@{{ post.user }}</a>
-  <p>{{ post.text|linebreaksbr }}</p>
+<div class="action">
   {% if request.user == post.user %}
-    <a href="{% url 'movieee:posts_edit' post.id %}" method="post">
+    <a href="{% url 'movieee:posts_edit' post.id %}" method="post" class="edit">
       <button class="btn" type="submit">編集</button>
     </a>
-    <form action="{% url 'movieee:posts_delete' post.id %}" method="post">{% csrf_token %}
+    <form action="{% url 'movieee:posts_delete' post.id %}" method="post" class="delete">{% csrf_token %}
       <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
     </form>
   {% endif %}
-  <hr>
-  {% for comment in post.comments.all %}
-    <strong>{{ comment.user}}</strong>
-    <p>{{ comment.comment }}</p>
-    <p>{{ comment.created_date }}</p>
-  {% empty %}
-    <p>No comments here yet</p>
-  {% endfor %}
 </div>
+
+<div class="post-detail">
+  <img src="{{ post.image.url }}" alt="post-detail" class="post-img">
+  <div class="post-main">
+    <h2>{{ post.title }}</h2>
+    <div class="post-info">
+      <a href="{% url 'movieee:users_detail' post.user.id %}" class="post-user">@{{ post.user }}</a>
+      <div class="post-date">
+        <p>{{ post.created_date|date:"Y/m/d H:i" }}</p>
+      </div>
+    </div>
+    <hr>
+    <p>{{ post.text|linebreaksbr }}</p>
+  </div>
+</div>
+<hr>
+{% for comment in post.comments.all %}
+  <strong>@{{ comment.user}}</strong>
+  <p>{{ comment.comment }}</p>
+  <p>{{ comment.created_date }}</p>
+{% empty %}
+  <p>No comments here yet</p>
+{% endfor %}
 
 {% endblock %}

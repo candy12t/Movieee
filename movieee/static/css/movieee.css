@@ -50,7 +50,7 @@ header {
 
 .container {
   width: 90%;
-  padding-top: 40px;
+  padding-top: 60px;
   margin: auto;
   overflow: auto;
 }
@@ -72,7 +72,7 @@ header {
 .post-title strong {
   font-size: 20px;
 }
-.post-img {
+.post .post-img {
   width: 100%;
   max-width: 500px;
   height: 300px;
@@ -82,25 +82,69 @@ header {
 .post-img:hover {
   opacity: 0.8;
 }
+.post-text p {
+  height: 48px;
+}
 .post-info {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
 }
-.post-info a {
+.post-user {
   text-decoration: none;
   color: black;
+}
+.post-user:hover {
+  text-decoration: underline;
 }
 .post-date {
   color: #828282;
 }
+.post-date p {
+  margin: 0;
+}
 
+.action {
+  display: flex;
+  justify-content: flex-end;
+}
+.btn {
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color:black;
+  border: solid 2px black;
+  border-radius: 3px;
+  transition: .4s;
+  margin: 0 5px;
+}
+.btn:hover {
+  background: black;
+  color: white;
+}
+.post-detail {
+  display: flex;
+}
 .post-detail .post-img{
-  object-fit: contain; 
+  object-fit: contain;
+  width: 500px;
+  max-height: 600px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+
 }
 .post-detail .post-img:hover {
   opacity: 1;
 }
+.post-main {
+  width: 60%;
+  margin-left: 30px;
+}
+.post-main h2 {
+  margin: 0;
+}
+
 .user-name {
   font-size: 30px;
 }
