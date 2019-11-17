@@ -90,17 +90,26 @@ header {
   justify-content: space-between;
   font-size: 14px;
 }
-.post-user {
+.post-user, .comment-user {
   text-decoration: none;
   color: black;
 }
-.post-user:hover {
+.post-user:hover, .comment-user:hover {
   text-decoration: underline;
 }
-.post-date {
+.post-date, .comment-date {
   color: #828282;
 }
-.post-date p {
+.post-date p, .comment-date p {
+  margin: 0;
+}
+.comment-container {
+  padding-bottom: 100px;
+}
+.comment {
+  margin-bottom: 40px;
+}
+.comment p {
   margin: 0;
 }
 

@@ -26,13 +26,23 @@
     <p>{{ post.text|linebreaksbr }}</p>
   </div>
 </div>
+
 <hr>
-{% for comment in post.comments.all %}
-  <strong>@{{ comment.user}}</strong>
-  <p>{{ comment.comment }}</p>
-  <p>{{ comment.created_date }}</p>
-{% empty %}
-  <p>No comments here yet</p>
-{% endfor %}
+<div class="comment-container">
+  <h3>コメント一覧</h3>
+  {% for comment in post.comments.all %}
+    <div class="comment">
+      <div class="comment-date">
+        <p>{{ comment.created_date|date:"Y/m/d H:i" }}</p>
+      </div>
+      <a href="{% url 'movieee:users_detail' comment.user.id %}" class="comment-user">
+        <strong>@{{ comment.user}}</strong>
+      </a>
+      <p>{{ comment.comment }}</p>
+    </div>
+  {% empty %}
+    <p>No comments here yet</p>
+  {% endfor %}
+</div>
 
 {% endblock %}
