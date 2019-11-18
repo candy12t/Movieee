@@ -5,8 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
-from .form import PostForm
-from .models import Post
+from .form import PostForm, CommentForm
+from .models import Post, Comment
 
 def index(request):
   posts = Post.objects.all().order_by('-created_date')
@@ -78,3 +78,19 @@ def posts_edit(request, pk):
   else:
     form = PostForm(instance=post)
   return render(request, 'movieee/posts_edit.html', {'form': form, 'post': post})
+
+
+@login_required
+def comments_add(request, pk):
+  post = get_object_or_404(Post, pk=pk)
+  if request.method == 'POST':
+    form = CommentForm(request.POST)
+    if form.is_valid():
+      comment = form.save(commit=False)
+      comment.post = post
+      comment.user = request.user
+      comment.save()
+    return redirect('movieee:posts_detail', pk=post.pk)
+  else:
+    form = CommentForm()
+  return render(request, 'movieee/comments_add.html', {'form': form})
