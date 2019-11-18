@@ -29,6 +29,7 @@
 
 <hr>
 <div class="comment-container">
+  <a href="{% url 'movieee:comments_add' post.id %}"><button class="btn" type="submit">コメントする</button></a>
   <h3>コメント一覧</h3>
   {% for comment in post.comments.all %}
     <div class="comment">
@@ -36,9 +37,9 @@
         <p>{{ comment.created_date|date:"Y/m/d H:i" }}</p>
       </div>
       <a href="{% url 'movieee:users_detail' comment.user.id %}" class="comment-user">
-        <strong>@{{ comment.user}}</strong>
+        <strong>@{{ comment.user }}</strong>
       </a>
-      <p>{{ comment.comment }}</p>
+      <p>{{ comment.comment|linebreaks }}</p>
     </div>
   {% empty %}
     <p>No comments here yet</p>
