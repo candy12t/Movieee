@@ -2,25 +2,13 @@
 {% block content %}
 
 <div>
-  <a href="{% url 'movieee:index' %}">ホームに戻る</a>
+  <a href="{% url 'movieee:index' %}">
+    <button class="btn" type="submit">ホームに戻る</button>
+  </a>
 </div>
 
 <form action="{% url 'movieee:posts_new' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-  <table>
-    <tr>
-      <th>タイトル</th>
-      <td>{{ form.title }}</td>
-    </tr>
-    <tr>
-      <th>内容</th>
-      <td>{{ form.text }}</td>
-    </tr>
-    <tr>
-      <th>画像</th>
-      <td>{{ form.image }}</td>
-    </tr>
-    </table>
-    <button type="submit" class="btn">投稿</button>
+  {% include 'movieee/posts_form.html' %}
 </form>
 
 {% endblock %}
