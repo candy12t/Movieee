@@ -81,10 +81,11 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = 'var/www/{}/static'.format(os.path.basename)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+MEDIA_ROOT = 'var/www/{}/media'.format(os.path.basename)
 
 LOGIN_URL = 'movieee:login'
 LOGIN_REDIRECT_URL = 'movieee:index'
