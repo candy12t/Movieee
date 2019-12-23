@@ -1,6 +1,7 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROJECT_NAME = os.path.join(BASE_DIR)
 
 
 INSTALLED_APPS = [
@@ -82,10 +83,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = 'var/www/{}/static'.format(os.path.basename)
+STATIC_ROOT = 'var/www/{}/static'.format(PROJECT_NAME)
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'var/www/{}/media'.format(os.path.basename)
+MEDIA_ROOT = 'var/www/{}/media'.format(PROJECT_NAME)
 
 LOGIN_URL = 'movieee:login'
 LOGIN_REDIRECT_URL = 'movieee:index'
