@@ -7,7 +7,6 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
-
 from django.views.generic import View
 
 
@@ -21,10 +20,16 @@ class IndexView(View):
 index = IndexView.as_view()
 
 
-def users_detail(request, pk):
-  user = get_object_or_404(User, pk=pk)
-  posts = user.post_set.all().order_by('-created_date')
-  return render(request, 'movieee/users_detail.html', {'user': user, 'posts': posts})
+class UsersDetailView(View):
+  def get(self, request, pk, *args, **kwargs):
+    user = get_object_or_404(User, pk=pk)
+    posts = user.post_set.all().order_by('-created_date')
+    context = {
+      'user': user,
+      'posts': posts
+    }
+    return render(request, 'movieee/users_detail.html', context)
+users_detail = UsersDetailView.as_view()
 
 
 def signup(request):
