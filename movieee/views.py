@@ -8,8 +8,10 @@ from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
 from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
+# 一覧表示
 class IndexView(View):
   def get(self, request, *args, **kwargs):
     posts = Post.objects.all().order_by('-created_date')
@@ -20,6 +22,7 @@ class IndexView(View):
 index = IndexView.as_view()
 
 
+# ユーザー詳細表示
 class UsersDetailView(View):
   def get(self, request, pk, *args, **kwargs):
     user = get_object_or_404(User, pk=pk)
@@ -32,6 +35,7 @@ class UsersDetailView(View):
 users_detail = UsersDetailView.as_view()
 
 
+# 投稿一覧表示
 class PostsDetailView(View):
   def get(self, request, pk, *args, **kwargs):
     post = get_object_or_404(Post, pk=pk)
@@ -59,19 +63,23 @@ def signup(request):
   return render(request, 'movieee/signup.html', {'form': form})
 
 
-@login_required
-def posts_new(request):
-  if request.method == 'POST':
+# 投稿
+class PostsNewView(LoginRequiredMixin, View):
+  def get(self, request, *args, **kwargs):
+    context = {
+      'form': PostForm()
+    }
+    return render(request, 'movieee/posts_new.html', context)
+
+  def post(self, request, *args, **kwargs):
     form = PostForm(request.POST, request.FILES)
     if form.is_valid():
       post = form.save(commit=False)
       post.user = request.user
       post.save()
       messages.success(request, "投稿しました！")
-    return redirect('movieee:users_detail', pk=request.user.pk)
-  else:
-    form = PostForm()
-  return render(request, 'movieee/posts_new.html', {'form': form})
+      return redirect('movieee:users_detail', pk=request.user.pk)
+posts_new = PostsNewView.as_view()
 
 
 @require_POST
