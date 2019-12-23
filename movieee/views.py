@@ -32,6 +32,16 @@ class UsersDetailView(View):
 users_detail = UsersDetailView.as_view()
 
 
+class PostsDetailView(View):
+  def get(self, request, pk, *args, **kwargs):
+    post = get_object_or_404(Post, pk=pk)
+    context = {
+      'post': post
+    }
+    return render(request, 'movieee/posts_detail.html', context)
+posts_detail = PostsDetailView.as_view()
+
+
 def signup(request):
   if request.method == 'POST':
     form = UserCreationForm(request.POST)
@@ -62,11 +72,6 @@ def posts_new(request):
   else:
     form = PostForm()
   return render(request, 'movieee/posts_new.html', {'form': form})
-
-
-def posts_detail(request, pk):
-  post = get_object_or_404(Post, pk=pk)
-  return render(request, 'movieee/posts_detail.html', {'post': post})
 
 
 @require_POST
