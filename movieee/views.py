@@ -8,9 +8,17 @@ from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
 
-def index(request):
-  posts = Post.objects.all().order_by('-created_date')
-  return render(request, 'movieee/index.html', {'posts': posts})
+from django.views.generic import View
+
+
+class IndexView(View):
+  def get(self, request, *args, **kwargs):
+    posts = Post.objects.all().order_by('-created_date')
+    context = {
+      'posts': posts
+    }
+    return render(request, 'movieee/index.html', context)
+index = IndexView.as_view()
 
 
 def users_detail(request, pk):
