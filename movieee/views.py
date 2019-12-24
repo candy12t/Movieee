@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
@@ -82,12 +81,14 @@ class PostsNewView(LoginRequiredMixin, View):
 posts_new = PostsNewView.as_view()
 
 
-@require_POST
-def posts_delete(request, pk):
-  post = get_object_or_404(Post, pk=pk)
-  post.delete()
-  messages.success(request, "削除しました")
-  return redirect('movieee:users_detail', request.user.id)
+# 削除
+class PostsDeleteView(LoginRequiredMixin, View):
+  def post(self, request, pk, *args, **kwargs):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    messages.success(request, "削除しました")
+    return redirect('movieee:users_detail', request.user.id)
+posts_delete = PostsDeleteView.as_view()
 
 
 # 編集
