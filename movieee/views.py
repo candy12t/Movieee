@@ -90,20 +90,27 @@ def posts_delete(request, pk):
   return redirect('movieee:users_detail', request.user.id)
 
 
-@login_required
-def posts_edit(request, pk):
-  post = get_object_or_404(Post, pk=pk)
-  if request.method == 'POST':
+# 編集
+class PostsEditView(LoginRequiredMixin, View):
+  def get(self, request, pk, *args, **kwargs):
+    post = get_object_or_404(Post, pk=pk)
+    form = PostForm(instance=post)
+    context = {
+      'form': form,
+      'post': post
+    }
+    return render(request, 'movieee/posts_edit.html', context)
+
+  def post(self, request, pk, *args, **kwargs):
+    post = get_object_or_404(Post, pk=pk)
     form = PostForm(request.POST, instance=post)
     if form.is_valid():
       post = form.save(commit=False)
       post.user = request.user
       post.save()
       messages.success(request, "編集しました！")
-    return redirect('movieee:index')
-  else:
-    form = PostForm(instance=post)
-  return render(request, 'movieee/posts_edit.html', {'form': form, 'post': post})
+    return redirect('movieee:posts_detail', pk=post.pk)
+posts_edit = PostsEditView.as_view()
 
 
 @login_required
