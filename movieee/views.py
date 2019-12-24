@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
@@ -114,10 +113,17 @@ class PostsEditView(LoginRequiredMixin, View):
 posts_edit = PostsEditView.as_view()
 
 
-@login_required
-def comments_add(request, pk):
-  post = get_object_or_404(Post, pk=pk)
-  if request.method == 'POST':
+# コメント追加
+class CommentsAddView(LoginRequiredMixin, View):
+  def get(self, request, pk, *args, **kwargs):
+    post = get_object_or_404(Post, pk=pk)
+    context = {
+      'form' : CommentForm()
+    }
+    return render(request, 'movieee/comments_add.html', context)
+
+  def post(self, request, pk, *args, **kwargs):
+    post = get_object_or_404(Post, pk=pk)
     form = CommentForm(request.POST)
     if form.is_valid():
       comment = form.save(commit=False)
@@ -125,6 +131,4 @@ def comments_add(request, pk):
       comment.user = request.user
       comment.save()
     return redirect('movieee:posts_detail', pk=post.pk)
-  else:
-    form = CommentForm()
-  return render(request, 'movieee/comments_add.html', {'form': form})
+comments_add = CommentsAddView.as_view()
