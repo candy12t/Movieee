@@ -2,10 +2,11 @@ import os
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_NAME = os.path.join(BASE_DIR)
+
+SECRET_KEY = 'f=*hm9u(av@3af4&ez@%227u!4!2kb&j%s0-9ux0!yt4=yp$xp'
 
 DEBUG = True
-SECRET_KEY = 'f=*hm9u(av@3af4&ez@%227u!4!2kb&j%s0-9ux0!yt4=yp$xp'
+
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
 
