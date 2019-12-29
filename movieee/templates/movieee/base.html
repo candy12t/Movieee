@@ -17,7 +17,7 @@
           <li><a href="{% url 'movieee:users_detail' request.user.id %}">マイページ</a></li>
         {% else %}
           <li><a href="{% url 'movieee:login' %}">ログイン</a></li>
-          <li><a href="{% url 'movieee:signup' %}">新規登録</a></li>
+          <li><a href="{% url 'accounts:signup' %}">新規登録</a></li>
         {% endif %}
       </ul>
     </nav>

@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>ユーザー登録</h2>
-<form action="{% url 'movieee:signup'%}" method="post">{% csrf_token %}
+<form action="{% url 'accounts:signup'%}" method="post">{% csrf_token %}
   <label>ユーザー名</label>
   {{ form.username }}
   {{ form.username.errors }}
