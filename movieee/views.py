@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
@@ -42,23 +40,6 @@ class PostsDetailView(View):
     }
     return render(request, 'movieee/posts_detail.html', context)
 posts_detail = PostsDetailView.as_view()
-
-
-def signup(request):
-  if request.method == 'POST':
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-      new_user = form.save()
-      input_username = form.cleaned_data['username']
-      input_password = form.cleaned_data['password1']
-      # フォームの入力値が認証できればユーザーオブジェクト、できなければNoneを返す
-      new_user = authenticate(username=input_username, password=input_password)
-      if new_user is not None:
-        login(request, new_user)
-        return redirect('movieee:users_detail', pk=new_user.pk)
-  else:
-    form = UserCreationForm()
-  return render(request, 'movieee/signup.html', {'form': form})
 
 
 # 投稿
