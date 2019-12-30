@@ -18,20 +18,7 @@ class IndexView(View):
 index = IndexView.as_view()
 
 
-# ユーザー詳細表示
-# class UsersDetailView(View):
-#   def get(self, request, pk, *args, **kwargs):
-#     user = get_object_or_404(User, pk=pk)
-#     posts = user.post_set.all().order_by('-created_date')
-#     context = {
-#       'user': user,
-#       'posts': posts
-#     }
-#     return render(request, 'movieee/users_detail.html', context)
-# users_detail = UsersDetailView.as_view()
-
-
-# 投稿一覧表示
+# 投稿詳細表示
 class PostsDetailView(View):
   def get(self, request, pk, *args, **kwargs):
     post = get_object_or_404(Post, pk=pk)
