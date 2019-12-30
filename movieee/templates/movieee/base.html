@@ -14,7 +14,7 @@
       <ul class="main-nav">
         <li><a href="{% url 'movieee:posts_new' %}">投稿</a></li>
         {% if request.user.is_authenticated %}
-          <li><a href="{% url 'movieee:users_detail' request.user.id %}">マイページ</a></li>
+          <li><a href="{% url 'accounts:users_detail' request.user.id %}">マイページ</a></li>
         {% else %}
           <li><a href="{% url 'accounts:login' %}">ログイン</a></li>
           <li><a href="{% url 'accounts:signup' %}">新規登録</a></li>

@@ -17,7 +17,7 @@
   <div class="post-main">
     <h2>{{ post.title }}</h2>
     <div class="post-info">
-      <a href="{% url 'movieee:users_detail' post.user.id %}" class="post-user">@{{ post.user }}</a>
+      <a href="{% url 'accounts:users_detail' post.user.id %}" class="post-user">@{{ post.user }}</a>
       <div class="post-date">
         <p>{{ post.created_date|date:"Y/m/d H:i" }}</p>
       </div>
@@ -36,7 +36,7 @@
       <div class="comment-date">
         <p>{{ comment.created_date|date:"Y/m/d H:i" }}</p>
       </div>
-      <a href="{% url 'movieee:users_detail' comment.user.id %}" class="comment-user">
+      <a href="{% url 'accounts:users_detail' comment.user.id %}" class="comment-user">
         <strong>@{{ comment.user }}</strong>
       </a>
       <p>{{ comment.comment|linebreaks }}</p>
