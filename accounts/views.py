@@ -9,11 +9,11 @@ from django.contrib.auth.models import User
 class SignupView(View):
   def get(self, request, *args, **kwargs):
     if request.user.is_authenticated:
-      return redirect('movieee:index.html')
+      return redirect('movieee:index')
     context = {
       'form': UserCreationForm()
     }
-    return render(request, 'movieee/signup.html', context)
+    return render(request, 'accounts/signup.html', context)
 
   def post(self, request, *args, **kwargs):
     form = UserCreationForm(request.POST)
@@ -24,7 +24,7 @@ class SignupView(View):
       new_user = authenticate(username=input_username, password=input_password)
       if new_user is not None:
         login(request, new_user)
-        return redirect('movieee:users_detail', pk=new_user.pk)
+        return redirect('accounts:users_detail', pk=new_user.pk)
 signup = SignupView.as_view()
 
 
@@ -37,5 +37,5 @@ class UsersDetailView(View):
       'user': user,
       'posts': posts
     }
-    return render(request, 'movieee/users_detail.html', context)
+    return render(request, 'accounts/users_detail.html', context)
 users_detail = UsersDetailView.as_view()
