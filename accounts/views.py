@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 # 新規登録
@@ -25,3 +26,16 @@ class SignupView(View):
         login(request, new_user)
         return redirect('movieee:users_detail', pk=new_user.pk)
 signup = SignupView.as_view()
+
+
+# ユーザー詳細表示
+class UsersDetailView(View):
+  def get(self, request, pk, *args, **kwargs):
+    user = get_object_or_404(User, pk=pk)
+    posts = user.post_set.all().order_by('-created_date')
+    context = {
+      'user': user,
+      'posts': posts
+    }
+    return render(request, 'movieee/users_detail.html', context)
+users_detail = UsersDetailView.as_view()
