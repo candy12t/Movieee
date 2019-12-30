@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'movieee.apps.MovieeeConfig',
+    'accounts.apps.AccountsConfig',
     'django_cleanup',
 ]
 
@@ -95,4 +96,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'movieee:index'
-LOGOUT_REDIRECT_URL = 'movieee:index'
+LOGOUT_REDIRECT_URL = 'accounts:login'
