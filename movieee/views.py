@@ -19,16 +19,16 @@ index = IndexView.as_view()
 
 
 # ユーザー詳細表示
-class UsersDetailView(View):
-  def get(self, request, pk, *args, **kwargs):
-    user = get_object_or_404(User, pk=pk)
-    posts = user.post_set.all().order_by('-created_date')
-    context = {
-      'user': user,
-      'posts': posts
-    }
-    return render(request, 'movieee/users_detail.html', context)
-users_detail = UsersDetailView.as_view()
+# class UsersDetailView(View):
+#   def get(self, request, pk, *args, **kwargs):
+#     user = get_object_or_404(User, pk=pk)
+#     posts = user.post_set.all().order_by('-created_date')
+#     context = {
+#       'user': user,
+#       'posts': posts
+#     }
+#     return render(request, 'movieee/users_detail.html', context)
+# users_detail = UsersDetailView.as_view()
 
 
 # 投稿一覧表示
@@ -57,7 +57,7 @@ class PostsNewView(LoginRequiredMixin, View):
       post.user = request.user
       post.save()
       messages.success(request, "投稿しました！")
-      return redirect('movieee:users_detail', pk=request.user.pk)
+      return redirect('accounts:users_detail', pk=request.user.pk)
 posts_new = PostsNewView.as_view()
 
 
@@ -67,7 +67,7 @@ class PostsDeleteView(LoginRequiredMixin, View):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     messages.success(request, "削除しました")
-    return redirect('movieee:users_detail', request.user.id)
+    return redirect('accounts:users_detail', request.user.id)
 posts_delete = PostsDeleteView.as_view()
 
 
