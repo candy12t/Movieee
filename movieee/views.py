@@ -71,7 +71,7 @@ class PostsEditView(LoginRequiredMixin, View):
 
   def post(self, request, pk, *args, **kwargs):
     post = get_object_or_404(Post, pk=pk)
-    form = PostForm(request.POST, instance=post)
+    form = PostForm(request.POST, request.FILES, instance=post)
     if form.is_valid():
       post = form.save(commit=False)
       post.user = request.user

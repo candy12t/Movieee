@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
 <div class="action">
@@ -13,7 +14,11 @@
 </div>
 
 <div class="post-detail">
-  <img src="{{ post.image.url }}" alt="post-detail" class="post-img">
+  {% if post.image %}
+    <img src="{{ post.image.url }}" alt="post-detail" class="post-img">
+  {% else %}
+    <img src="{% static 'images/no_image.png' %}" alt="post-detail" class="post-img">
+  {% endif %}
   <div class="post-main">
     <h2>{{ post.title }}</h2>
     <div class="post-info">
