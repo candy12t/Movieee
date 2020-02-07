@@ -3,52 +3,52 @@
 {% block content %}
 
 <div class="action">
-  {% if request.user == post.user %}
-    <a href="{% url 'movieee:posts_edit' post.id %}" method="post" class="edit">
-      <button class="btn" type="submit">編集</button>
-    </a>
-    <form action="{% url 'movieee:posts_delete' post.id %}" method="post" class="delete">{% csrf_token %}
-      <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
-    </form>
-  {% endif %}
+    {% if request.user == post.user %}
+        <a href="{% url 'movieee:posts_edit' post.id %}" method="post" class="edit">
+            <button class="btn" type="submit">編集</button>
+        </a>
+        <form action="{% url 'movieee:posts_delete' post.id %}" method="post" class="delete">{% csrf_token %}
+            <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
+        </form>
+    {% endif %}
 </div>
 
 <div class="post-detail">
-  {% if post.image %}
-    <img src="{{ post.image.url }}" alt="post-detail" class="post-img">
-  {% else %}
-    <img src="{% static 'images/no_image.png' %}" alt="post-detail" class="post-img">
-  {% endif %}
-  <div class="post-main">
-    <h2>{{ post.title }}</h2>
-    <div class="post-info">
-      <a href="{% url 'accounts:users_detail' post.user.id %}" class="post-user">@{{ post.user }}</a>
-      <div class="post-date">
-        <p>{{ post.created_date|date:"Y/m/d H:i" }}</p>
-      </div>
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="post-detail" class="post-img">
+    {% else %}
+        <img src="{% static 'images/no_image.png' %}" alt="post-detail" class="post-img">
+    {% endif %}
+    <div class="post-main">
+        <h2>{{ post.title }}</h2>
+        <div class="post-info">
+            <a href="{% url 'accounts:users_detail' post.user.id %}" class="post-user">@{{ post.user }}</a>
+            <div class="post-date">
+                <p>{{ post.created_date|date:"Y/m/d H:i" }}</p>
+            </div>
+        </div>
+        <hr>
+        <p>{{ post.text|linebreaksbr }}</p>
     </div>
-    <hr>
-    <p>{{ post.text|linebreaksbr }}</p>
-  </div>
 </div>
 
 <hr>
 <div class="comment-container">
-  <a href="{% url 'movieee:comments_add' post.id %}"><button class="btn" type="submit">コメントする</button></a>
-  <h3>コメント一覧</h3>
-  {% for comment in post.comments.all %}
-    <div class="comment">
-      <div class="comment-date">
-        <p>{{ comment.created_date|date:"Y/m/d H:i" }}</p>
-      </div>
-      <a href="{% url 'accounts:users_detail' comment.user.id %}" class="comment-user">
-        <strong>@{{ comment.user }}</strong>
-      </a>
-      <p>{{ comment.comment|linebreaks }}</p>
-    </div>
-  {% empty %}
-    <p>No comments here yet</p>
-  {% endfor %}
+    <a href="{% url 'movieee:comments_add' post.id %}"><button class="btn" type="submit">コメントする</button></a>
+    <h3>コメント一覧</h3>
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <div class="comment-date">
+                <p>{{ comment.created_date|date:"Y/m/d H:i" }}</p>
+            </div>
+            <a href="{% url 'accounts:users_detail' comment.user.id %}" class="comment-user">
+                <strong>@{{ comment.user }}</strong>
+            </a>
+            <p>{{ comment.comment|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>No comments here yet</p>
+    {% endfor %}
 </div>
 
 {% endblock %}

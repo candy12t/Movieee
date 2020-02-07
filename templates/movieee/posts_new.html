@@ -2,13 +2,13 @@
 {% block content %}
 
 <div>
-  <a href="{% url 'movieee:index' %}">
-    <button class="btn" type="submit">ホームに戻る</button>
-  </a>
+    <a href="{% url 'movieee:index' %}">
+        <button class="btn" type="submit">ホームに戻る</button>
+    </a>
 </div>
 
 <form action="{% url 'movieee:posts_new' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-  {% include 'movieee/posts_form.html' %}
+    {% include 'movieee/posts_form.html' %}
 </form>
 
 {% endblock %}
