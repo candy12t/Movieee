@@ -2,11 +2,11 @@ from django.forms import ModelForm
 from .models import Post, Comment
 
 class PostForm(ModelForm):
-  class Meta:
-    model = Post
-    fields = ['title', 'text', 'image']
+    class Meta:
+        model = Post
+        fields = ['title', 'text', 'image']
 
 class CommentForm(ModelForm):
-  class Meta:
-    model = Comment
-    fields = ['comment',]
+    class Meta:
+        model = Comment
+        fields = ['comment',]
