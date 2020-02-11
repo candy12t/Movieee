@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
-from django.views.generic import View, ListView, DetailView, CreateView, DeleteView
+from django.views.generic import View, ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
@@ -63,25 +63,22 @@ posts_delete = PostsDeleteView.as_view()
 
 
 # 編集
-class PostsEditView(LoginRequiredMixin, View):
-    def get(self, request, pk, *args, **kwargs):
-        post = get_object_or_404(Post, pk=pk)
-        form = PostForm(instance=post)
-        context = {
-            'form': form,
-            'post': post
-        }
-        return render(request, 'movieee/posts_edit.html', context)
+class PostsEditView(LoginRequiredMixin, UpdateView):
+    model = Post
+    template_name = 'movieee/posts_edit.html'
+    form_class = PostForm
+    
+    def get_success_url(self):
+        return reverse_lazy('movieee:posts_detail', kwargs={'pk': self.kwargs['pk']})
 
-    def post(self, request, pk, *args, **kwargs):
-        post = get_object_or_404(Post, pk=pk)
-        form = PostForm(request.POST, request.FILES, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.save()
-            messages.success(request, "編集しました！")
-        return redirect('movieee:posts_detail', pk=post.pk)
+    def form_valid(self, form):
+        messages.success(self.request, 'レビューを更新しました！')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'レビューの更新に失敗しました')
+        return super().form_invalid(form)
+
 posts_edit = PostsEditView.as_view()
 
 
