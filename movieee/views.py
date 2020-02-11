@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
-from django.views.generic import View, ListView, DetailView, CreateView
+from django.views.generic import View, ListView, DetailView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
@@ -51,12 +51,14 @@ posts_new = PostsNewView.as_view()
 
 
 # 削除
-class PostsDeleteView(LoginRequiredMixin, View):
-    def post(self, request, pk, *args, **kwargs):
-        post = get_object_or_404(Post, pk=pk)
-        post.delete()
-        messages.success(request, "削除しました")
-        return redirect('accounts:users_detail', request.user.id)
+class PostsDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('movieee:index')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'レビューを削除しました')
+        return super().delete(request, *args, **kwargs)
+
 posts_delete = PostsDeleteView.as_view()
 
 
