@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
-from django.views.generic import View, ListView, DetailView
+from django.views.generic import View, ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 # 一覧表示
@@ -29,21 +30,23 @@ posts_detail = PostsDetailView.as_view()
 
 
 # 投稿
-class PostsNewView(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        context = {
-            'form': PostForm()
-        }
-        return render(request, 'movieee/posts_new.html', context)
+class PostsNewView(LoginRequiredMixin, CreateView):
+    model = Post
+    template_name = 'movieee/posts_new.html'
+    form_class = PostForm
+    success_url = reverse_lazy('movieee:index')
 
-    def post(self, request, *args, **kwargs):
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.save()
-            messages.success(request, "投稿しました！")
-            return redirect('accounts:users_detail', pk=request.user.pk)
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.user = self.request.user
+        post.save()
+        messages.success(self.request, 'レビューを投稿しました！')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'レビューの投稿に失敗しました！')
+        return super().form_valid(form)
+
 posts_new = PostsNewView.as_view()
 
 
