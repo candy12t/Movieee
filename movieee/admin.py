@@ -15,7 +15,10 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [CommentInline]
 
     def image_preview(self, Post):
-        return mark_safe('<img src="{}" style="width:100px; height:auto;">'.format(Post.image.url))
+        if Post.image:
+            return mark_safe('<img src="{}" style="width:100px; height:auto;">'.format(Post.image.url))
+        else:
+            return None
 
     image_preview.short_description = 'プレビュー'
 
