@@ -3,18 +3,20 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
-from django.views.generic import View
+from django.views.generic import View, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # 一覧表示
-class IndexView(View):
-    def get(self, request, *args, **kwargs):
+class IndexView(ListView):
+    model = Post
+    template_name = 'movieee/index.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
         posts = Post.objects.all().order_by('-created_date')
-        context = {
-            'posts': posts
-        }
-        return render(request, 'movieee/index.html', context)
+        return posts
+
 index = IndexView.as_view()
 
 
