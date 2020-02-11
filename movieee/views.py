@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
-from django.views.generic import View, ListView
+from django.views.generic import View, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -21,13 +21,10 @@ index = IndexView.as_view()
 
 
 # 投稿詳細表示
-class PostsDetailView(View):
-    def get(self, request, pk, *args, **kwargs):
-        post = get_object_or_404(Post, pk=pk)
-        context = {
-            'post': post
-        }
-        return render(request, 'movieee/posts_detail.html', context)
+class PostsDetailView(DetailView):
+    model = Post
+    template_name = 'movieee/posts_detail.html'
+
 posts_detail = PostsDetailView.as_view()
 
 
