@@ -3,9 +3,13 @@
 
 <h2>ユーザー登録</h2>
 <form action="{% url 'accounts:signup'%}" method="post">{% csrf_token %}
+    <label>メールアドレス</label>
+    {{ form.email }}
+    {{ form.email.errors }}
+    <br>
     <label>ユーザー名</label>
-    {{ form.username }}
-    {{ form.username.errors }}
+    {{ form.user_name }}
+    {{ form.user_name.errors }}
     <br>
     <label>パスワード</label>
     {{ form.password1 }}
