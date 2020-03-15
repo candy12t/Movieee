@@ -1,11 +1,13 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
+from django.views.decorators.cache import never_cache
 
 
 class IndexView(TemplateView):
@@ -24,6 +26,22 @@ class CustomLoginView(LoginView):
 
 
 login = CustomLoginView.as_view()
+
+
+# カスタムログアウト
+class CustomLogoutView(LogoutView):
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        auth_logout(request)
+        next_page = self.get_next_page()
+        if next_page:
+            # Redirect to this page until the session has been cleared.
+            messages.success(self.request, 'ログアウトしました！')
+            return HttpResponseRedirect(next_page)
+        return super().dispatch(request, *args, **kwargs)
+
+
+logout = CustomLogoutView.as_view()
 
 
 # 新規登録
