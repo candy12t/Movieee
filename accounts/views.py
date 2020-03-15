@@ -1,13 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import View, TemplateView
+from django.views.generic import View, CreateView, TemplateView
 from django.views.decorators.cache import never_cache
+
+from .forms import SignupForm
 
 
 class IndexView(TemplateView):
@@ -45,22 +47,16 @@ logout = CustomLogoutView.as_view()
 
 
 # 新規登録
-class SignupView(View):
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('movieee:index')
-        context = {
-            'form': UserCreationForm()
-        }
-        return render(request, 'accounts/signup.html', context)
+class SignupView(CreateView):
+    template_name = 'accounts/signup.html'
+    form_class = SignupForm
+    success_url = reverse_lazy('accounts:index')
 
-    def post(self, request, *args, **kwargs):
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            new_user = form.save()
-            if new_user is not None:
-                login(request, new_user)
-                return redirect('accounts:users_detail', pk=new_user.pk)
+    def form_valid(self, form):
+        messages.success(self.request, '新規登録完了しました！')
+        return super().form_valid(form)
+
+
 signup = SignupView.as_view()
 
 
