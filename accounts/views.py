@@ -1,8 +1,29 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import View
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View, TemplateView
+
+
+class IndexView(TemplateView):
+    template_name = 'accounts/index.html'
+index = IndexView.as_view()
+
+
+# カスタムログイン
+class CustomLoginView(LoginView):
+    template_name = 'accounts/login.html'
+
+    def form_valid(self, form):
+        auth_login(self.request, form.get_user())
+        messages.success(self.request, 'ログインしました！')
+        return HttpResponseRedirect(self.get_success_url())
+
+
+login = CustomLoginView.as_view()
 
 
 # 新規登録
@@ -19,9 +40,6 @@ class SignupView(View):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            input_username = form.cleaned_data['username']
-            input_password = form.cleaned_data['password1']
-            new_user = authenticate(username=input_username, password=input_password)
             if new_user is not None:
                 login(request, new_user)
                 return redirect('accounts:users_detail', pk=new_user.pk)
