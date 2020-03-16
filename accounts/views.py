@@ -12,11 +12,6 @@ from .forms import SignupForm
 from .models import CustomUser
 
 
-class IndexView(TemplateView):
-    template_name = 'accounts/index.html'
-index = IndexView.as_view()
-
-
 # カスタムログイン
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
