@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
