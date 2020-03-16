@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -10,6 +9,7 @@ from django.views.generic import View, CreateView, TemplateView
 from django.views.decorators.cache import never_cache
 
 from .forms import SignupForm
+from .models import CustomUser
 
 
 class IndexView(TemplateView):
@@ -63,11 +63,13 @@ signup = SignupView.as_view()
 # ユーザー詳細表示
 class UsersDetailView(View):
     def get(self, request, pk, *args, **kwargs):
-        user = get_object_or_404(User, pk=pk)
+        user = get_object_or_404(CustomUser, pk=pk)
         posts = user.post_set.all().order_by('-created_date')
         context = {
             'user': user,
             'posts': posts
         }
         return render(request, 'accounts/users_detail.html', context)
+
+
 users_detail = UsersDetailView.as_view()
