@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -68,3 +69,25 @@ class UsersDetailView(View):
 
 
 users_detail = UsersDetailView.as_view()
+
+
+# パスワード変更
+class CustomPasswordChangeView(PasswordChangeView):
+    template_name = 'accounts/password_change_form.html'
+    success_url = reverse_lazy('accounts:password_change_done')
+
+
+password_change = CustomPasswordChangeView.as_view()
+
+
+# パスワード変更完了
+class CustomPasswordChangeDoneView(PasswordChangeDoneView):
+    template_name = 'accounts/password_change_done.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        messages.success(self.request, 'パスワード変更完了！')
+        return super().dispatch(*args, **kwargs)
+
+
+password_change_done = CustomPasswordChangeDoneView.as_view()
