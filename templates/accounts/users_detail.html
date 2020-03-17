@@ -3,6 +3,11 @@
 
 <h2 class="user-name">@{{ user.user_name }}</h2>
 
+{% if request.user == user %}
+    <a href="{% url 'accounts:logout' %}"><button class="btn">ログアウト</button></a>
+    <a href="{% url 'accounts:password_change' %}"><button class="btn">パスワード変更</button></a>
+{% endif %}
+
 {% if posts.count != 0 %}
     <p>投稿<strong>{{ posts.count }}</strong>件</p>
 {% else %}
@@ -13,9 +18,5 @@
     {% endif %}
 {% endif %}
 {% include 'movieee/post_list.html' %}
-
-{% if request.user == user %}
-    <a href="{% url 'accounts:logout' %}"><button class="btn">ログアウト</button></a>
-{% endif %}
 
 {% endblock %}
