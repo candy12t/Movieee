@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="post-container">
-    {% for post in post_list %}
+    {% for post in posts %}
         <div class="post">
             <div class="post-title">
                 <p><strong>{{ post.title|truncatechars_html:20 }}</strong></p>

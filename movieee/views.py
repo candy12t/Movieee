@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 class IndexView(ListView):
     model = Post
     template_name = 'movieee/index.html'
-    context_object_name = 'post_list'
+    context_object_name = 'posts'
 
     def get_queryset(self):
         posts = Post.objects.all().order_by('-created_date')
