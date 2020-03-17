@@ -96,3 +96,5 @@ MEDIA_URL = '/media/'
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'movieee:index'
 LOGOUT_REDIRECT_URL = 'accounts:login'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

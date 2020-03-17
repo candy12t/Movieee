@@ -3,10 +3,11 @@
 
 <form method="post">{% csrf_token %}
     {% if form.errors %}
-        <p>ユーザー名かパスワードが間違っています。もう一度入力してください。</p>
+        <p>メールアドレスかパスワードが間違っています。もう一度入力してください。</p>
     {% endif %}
         <h2>ログイン</h2>
-        <label>ユーザー名</label>
+        <label>メールアドレス</label>
+        <!-- LoginViewのform_class: AuthenticationFormがusername, modelsでusernameはすべてemail -->
         <input name="username">
         <br>
         <label>パスワード</label>

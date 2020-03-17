@@ -22,7 +22,7 @@
     <div class="post-main">
         <h2>{{ post.title }}</h2>
         <div class="post-info">
-            <a href="{% url 'accounts:users_detail' post.user.id %}" class="post-user">@{{ post.user }}</a>
+            <a href="{% url 'accounts:users_detail' post.user.id %}" class="post-user">@{{ post.user.user_name }}</a>
             <div class="post-date">
                 <p>{{ post.created_date|date:"Y/m/d H:i" }}</p>
             </div>

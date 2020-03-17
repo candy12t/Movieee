@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User
 from django.contrib import messages
 from .form import PostForm, CommentForm
 from .models import Post, Comment
@@ -12,7 +11,7 @@ from django.urls import reverse_lazy
 class IndexView(ListView):
     model = Post
     template_name = 'movieee/index.html'
-    context_object_name = 'post_list'
+    context_object_name = 'posts'
 
     def get_queryset(self):
         posts = Post.objects.all().order_by('-created_date')
