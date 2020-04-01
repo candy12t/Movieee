@@ -46,7 +46,7 @@ logout = CustomLogoutView.as_view()
 class SignupView(CreateView):
     template_name = 'accounts/signup.html'
     form_class = SignupForm
-    success_url = reverse_lazy('accounts:index')
+    success_url = reverse_lazy('accounts:login')
 
     def form_valid(self, form):
         messages.success(self.request, '新規登録完了しました！')
