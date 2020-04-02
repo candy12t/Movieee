@@ -6,6 +6,7 @@
 {% if request.user == user %}
     <a href="{% url 'accounts:logout' %}"><button class="btn">ログアウト</button></a>
     <a href="{% url 'accounts:password_change' %}"><button class="btn">パスワード変更</button></a>
+    <a href="{% url 'accounts:profile_change' user.id %}"><button class="btn">プロフィール変更</button></a>
 {% endif %}
 
 {% if posts.count != 0 %}
