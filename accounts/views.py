@@ -1,15 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import View, CreateView, TemplateView
+from django.views.generic import View, CreateView, TemplateView, UpdateView
 from django.views.decorators.cache import never_cache
 
-from .forms import SignupForm
+from .forms import SignupForm, ProfileForm
 from .models import CustomUser
 
 
@@ -91,3 +92,24 @@ class CustomPasswordChangeDoneView(PasswordChangeDoneView):
 
 
 password_change_done = CustomPasswordChangeDoneView.as_view()
+
+
+# プロフィール変更
+class ProfileChangeView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    template_name = 'accounts/profile_change.html'
+    form_class = ProfileForm
+
+    def get_success_url(self):
+        return reverse_lazy('accounts:users_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        messages.success(self.request, 'プロフィールを更新しました！')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'プロフィールの更新に失敗しました')
+        return super().form_invalid(form)
+
+
+profile_change = ProfileChangeView.as_view()
