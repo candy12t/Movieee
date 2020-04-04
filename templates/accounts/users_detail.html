@@ -2,6 +2,7 @@
 {% block content %}
 
 <h2 class="user-name">@{{ user.user_name }}</h2>
+<img class="icon" src="{{ user.icon.url }}" alt="icon">
 
 {% if request.user == user %}
     <a href="{% url 'accounts:logout' %}"><button class="btn">ログアウト</button></a>
