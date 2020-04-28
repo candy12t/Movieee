@@ -1,4 +1,6 @@
+import os
 import uuid
+
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import UserManager, PermissionsMixin
@@ -6,6 +8,12 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+
+def get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format(uuid.uuid4(), ext)
+    return os.path.join('icon', filename)
 
 
 class CustomUserManager(UserManager):
@@ -54,7 +62,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         unique=True,
         help_text=_('Required.'),
     )
-    icon = models.ImageField(_('アイコン'), upload_to='icon', blank=True)
+    icon = models.ImageField(_('アイコン'), upload_to=get_file_path, blank=True)
 
     is_staff = models.BooleanField(
         _('staff status'),
