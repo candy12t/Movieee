@@ -1,12 +1,21 @@
+import os
+import uuid
+
 from django.db import models
 
 from accounts.models import CustomUser
 
 
+def get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format(uuid.uuid4(), ext)
+    return os.path.join('image', filename)
+
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
-    image = models.ImageField(upload_to='image', blank=True)
+    image = models.ImageField(upload_to=get_file_path, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
