@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 
 <h2 class="user-name">@{{ user.user_name }}</h2>
-<img class="icon" src="{{ user.icon.url }}" alt="icon">
+{% if user.icon %}
+    <img class="icon" src="{{ user.icon.url }}" alt="icon">
+{% else %}
+    <img class="icon" src="{% static 'images/default-icon.png' %}" alt="icon">
+{% endif %}
 
 {% if request.user == user %}
     <a href="{% url 'accounts:logout' %}"><button class="btn">ログアウト</button></a>
