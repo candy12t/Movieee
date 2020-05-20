@@ -54,13 +54,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     user_name = models.CharField(
         _('username'),
         max_length=30,
-        help_text=_('Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        help_text=_('この項目は必須です。半角数字、@/./+/-/_ で30文字以下にしてください。'),
         validators=[username_validator],
     )
     email = models.EmailField(
         _('email address'),
         unique=True,
-        help_text=_('Required.'),
+        help_text=_('この項目は必須です。'),
     )
     icon = models.ImageField(_('アイコン'), upload_to=get_file_path, blank=True)
 
