@@ -6,7 +6,7 @@
 {% if user.icon %}
     <img class="icon" src="{{ user.icon.url }}" alt="icon">
 {% else %}
-    <img class="icon" src="{% static 'images/default-icon.png' %}" alt="icon">
+    <img class="icon" src="{% static 'images/default-icon.svg' %}" alt="icon">
 {% endif %}
 
 {% if request.user == user %}
