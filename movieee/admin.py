@@ -10,6 +10,7 @@ class CommentInline(admin.TabularInline):
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'image_preview', 'created_date', 'updated_date',)
+    list_display_links = ('title', 'image_preview',)
     list_filter = ('created_date',)
     search_fields = ('title', 'text',)
     inlines = [CommentInline]
