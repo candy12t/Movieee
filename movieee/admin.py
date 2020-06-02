@@ -10,13 +10,14 @@ class CommentInline(admin.TabularInline):
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'image_preview', 'created_date', 'updated_date',)
+    list_display_links = ('title', 'image_preview',)
     list_filter = ('created_date',)
-    search_fields = ('title', 'text',)
+    search_fields = ('title',)
     inlines = [CommentInline]
 
     def image_preview(self, Post):
         if Post.image:
-            return mark_safe('<img src="{}" style="width:100px; height:auto;">'.format(Post.image.url))
+            return mark_safe('<img src="{}" style="width:auto; height:150px;">'.format(Post.image.url))
         else:
             return None
 
