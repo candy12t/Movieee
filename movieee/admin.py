@@ -12,7 +12,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'image_preview', 'created_date', 'updated_date',)
     list_display_links = ('title', 'image_preview',)
     list_filter = ('created_date',)
-    search_fields = ('title', 'text',)
+    search_fields = ('title',)
     inlines = [CommentInline]
 
     def image_preview(self, Post):
