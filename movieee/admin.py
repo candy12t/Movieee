@@ -17,7 +17,7 @@ class PostAdmin(admin.ModelAdmin):
 
     def image_preview(self, Post):
         if Post.image:
-            return mark_safe('<img src="{}" style="width:100px; height:auto;">'.format(Post.image.url))
+            return mark_safe('<img src="{}" style="width:auto; height:150px;">'.format(Post.image.url))
         else:
             return None
 
