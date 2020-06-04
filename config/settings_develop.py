@@ -1,9 +1,17 @@
 from .settings_common import *
 
 
-DEBUG = True
+dev_env = environ.Env()
+dev_env.read_env('.env.dev')
 
-ALLOWED_HOSTS = []
+DEBUG = dev_env.int('DEBUG', default=0)
+
+ALLOWED_HOSTS = dev_env.list('ALLOWED_HOSTS')
+
+DATABASES = {
+    'default': dev_env.db()
+}
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
