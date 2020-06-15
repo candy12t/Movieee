@@ -28,18 +28,21 @@ img {
 
 .container {
 	display: grid;
-	grid-template-columns: 4% 1fr 4%;
 	grid-template-rows: 60px 1fr 50px;
+	grid-template-areas: 
+		"header"
+		"main"
+		"footer";
+	row-gap: 30px;
 }
 
 /* header */
 
 header {
+	grid-area: header;
 	display: flex;
 	justify-content: space-between;
 	background-color: #212121;
-	grid-column: 1 / 4;
-	grid-row: 1;
 	padding: 0 4%;
 }
 
@@ -71,28 +74,20 @@ header h1 {
 /* main */
 
 main {
+	grid-area: main;
 	height: 1500px;
-	grid-column: 2;
-	grid-row: 2;
+	padding: 0 4%;
 }
 
 /* footer */
 
 footer {
+	grid-area: footer;
 	background-color: #212121;
-	grid-column: 1 / 4;
-	grid-row: 3;
 }
 
 
 @media (max-width: 500px) {
-	.logo {
-		color: #da1725;
-		font-family: 'Lobster', cursive;
-			font-size: 2rem;
-		margin: 14px 0;
-	}
-
 	.menu {
 		display: flex;
 		font-size: 1rem;
@@ -102,5 +97,5 @@ footer {
 	.menu li a {
 		padding: 22px 5px;
 		color: #fff;
-	}	
+	}
 }
