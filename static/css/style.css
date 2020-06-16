@@ -34,6 +34,7 @@ img {
 		"main"
 		"footer";
 	row-gap: 30px;
+	height: 100vh;
 }
 
 /* header */
