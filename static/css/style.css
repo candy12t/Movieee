@@ -129,18 +129,15 @@ footer {
 
 @media (max-width: 500px) {
 	.menu {
-		display: flex;
 		font-size: 1rem;
 		margin: 18px 0;
 	}
 
 	.menu li a {
 		padding: 22px 5px;
-		color: #fff;
 	}
 
 	main {
-		grid-area: main;
 		padding: 0;
 	}
 }
