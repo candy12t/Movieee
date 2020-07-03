@@ -1,32 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <title>Movieee</title>
-    <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/movieee.css' %}">
-</head>
-<body>
-    <header class="wrapper">
-        <h1><a href="{% url 'movieee:index' %}" class="logo">Movieee</a></h1>
-        <nav>
-            <ul class="main-nav">
-                <li><a href="{% url 'movieee:posts_new' %}">投稿</a></li>
-                {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'accounts:users_detail' request.user.id %}">マイページ</a></li>
-                {% else %}
-                    <li><a href="{% url 'accounts:login' %}">ログイン</a></li>
-                    <li><a href="{% url 'accounts:signup' %}">新規登録</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    </header>
-    <div class="container">
-        {% for message in messages %}
-            <p class="message-success">{{ message }}</p>
-        {% endfor %}
-        {% block content %}{% endblock %}
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Movieee</title>
+        <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1><a href="{% url 'movieee:index' %}" class="logo">Movieee</a></h1>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="{% url 'movieee:posts_new' %}">投稿</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'accounts:users_detail' request.user.id %}">マイページ</a></li>
+                        {% else %}
+                            <li><a href="{% url 'accounts:login' %}">ログイン</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+            <main>
+                {% for message in messages %}
+                    <p class="message-success">{{ message }}</p>
+                {% endfor %}
+                {% block content %}{% endblock %}
+            </main>
+            <footer></footer>
+        </div>
+    </body>
 </html>
